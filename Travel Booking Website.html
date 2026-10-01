@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TravelGo - Travel Booking System</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #333;
+}
+
+/* ================= LOGIN ================= */
+
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            rgba(0, 91, 150, 0.75),
+            rgba(0, 180, 216, 0.75)
+        ),
+        url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.login-box {
+    width: 380px;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.login-logo {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.login-box h1 {
+    color: #0077b6;
+    margin-bottom: 8px;
+}
+
+.login-box p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: #023e8a;
+}
+
+.login-error {
+    color: red;
+    margin-top: 12px;
+    min-height: 20px;
+}
+
+/* ================= MAIN APP ================= */
+
+#app {
+    display: none;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    background: #0077b6;
+    color: white;
+
+    padding: 15px 35px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-name {
+    font-size: 15px;
+}
+
+.logout-btn {
+    background: white;
+    color: #0077b6;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background: #caf0f8;
+}
+
+/* ================= NAVIGATION ================= */
+
+nav {
+    background: #023e8a;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav button {
+    border: none;
+    background: transparent;
+    color: white;
+
+    padding: 15px 22px;
+
+    cursor: pointer;
+    font-size: 15px;
+}
+
+nav button:hover {
+    background: #0077b6;
+}
+
+/* ================= SECTIONS ================= */
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 480px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.45)
+        ),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 30px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.hero-btn {
+    background: #00b4d8;
+    color: white;
+
+    border: none;
+
+    padding: 14px 30px;
+
+    border-radius: 7px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+.hero-btn:hover {
+    background: #0077b6;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.page-title {
+    text-align: center;
+    color: #023e8a;
+    margin-bottom: 30px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-box {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    margin-bottom: 35px;
+}
+
+.search-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 15px;
+}
+
+.search-grid input,
+.search-grid select {
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    width: 100%;
+}
+
+.search-btn {
+    background: #0077b6;
+    color: white;
+
+    border: none;
+
+    padding: 13px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background: #023e8a;
+}
+
+/* ================= DESTINATIONS ================= */
+
+.destination-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 25px;
+}
+
+.destination-card {
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    transition: 0.3s;
+}
+
+.destination-card:hover {
+    transform: translateY(-5px);
+}
+
+.destination-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.destination-info {
+    padding: 18px;
+}
+
+.destination-info h3 {
+    color: #023e8a;
+    margin-bottom: 8px;
+}
+
+.destination-info p {
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.price {
+    color: #0077b6;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ================= BOOKING FORM ================= */
+
+.booking-box {
+    max-width: 850px;
+
+    margin: auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+}
+
+.submit-btn {
+    margin-top: 25px;
+
+    padding: 13px 25px;
+
+    background: #0077b6;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background: #023e8a;
+}
+
+/* ================= PACKAGES ================= */
+
+.package-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(270px, 1fr));
+
+    gap: 25px;
+}
+
+.package-card {
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.package-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.package-content {
+    padding: 20px;
+}
+
+.package-content h3 {
+    color: #023e8a;
+    margin-bottom: 10px;
+}
+
+.package-content ul {
+    margin: 15px 0 15px 20px;
+}
+
+.package-content li {
+    margin-bottom: 6px;
+}
+
+.package-price {
+    color: #0077b6;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+/* ================= BOOKINGS TABLE ================= */
+
+.table-box {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #0077b6;
+    color: white;
+    padding: 13px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.cancel-btn {
+    background: #e63946;
+    color: white;
+
+    border: none;
+
+    padding: 7px 12px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #b91c1c;
+}
+
+/* ================= ABOUT ================= */
+
+.about-box {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    line-height: 1.8;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #023e8a;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 600px) {
+
+    header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    nav button {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            ✈️
+        </div>
+
+        <h1>TravelGo</h1>
+
+        <p>
+            Travel Booking Management System
+        </p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <button
+            class="login-btn"
+            onclick="login()"
+        >
+            Login
+        </button>
+
+        <div
+            class="login-error"
+            id="loginError"
+        ></div>
+
+        <small>
+            Demo Login<br>
+            Username: <b>admin</b><br>
+            Password: <b>1234</b>
+        </small>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
+
+<div id="app">
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        ✈️ TravelGo
+    </div>
+
+    <div class="header-right">
+
+        <span class="user-name">
+            Welcome, Admin
+        </span>
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <button onclick="showSection('home')">
+        Home
+    </button>
+
+    <button onclick="showSection('flights')">
+        Flights
+    </button>
+
+    <button onclick="showSection('hotels')">
+        Hotels
+    </button>
+
+    <button onclick="showSection('packages')">
+        Tour Packages
+    </button>
+
+    <button onclick="showSection('bookings')">
+        My Bookings
+    </button>
+
+    <button onclick="showSection('about')">
+        About
+    </button>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+    id="home"
+    class="section active"
+>
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Explore The World
+            </h1>
+
+            <p>
+                Book flights, hotels and exciting
+                holiday packages in one place.
+            </p>
+
+            <button
+                class="hero-btn"
+                onclick="showSection('flights')"
+            >
+                Start Booking
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <h2 class="page-title">
+            Popular Destinations
+        </h2>
+
+        <div class="destination-grid">
+
+
+            <div class="destination-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=80"
+                    alt="Dubai"
+                >
+
+                <div class="destination-info">
+
+                    <h3>Dubai</h3>
+
+                    <p>
+                        Luxury, shopping and amazing
+                        architecture.
+                    </p>
+
+                    <span class="price">
+                        From ₹25,000
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80"
+                    alt="Paris"
+                >
+
+                <div class="destination-info">
+
+                    <h3>Paris</h3>
+
+                    <p>
+                        Experience romance, art and culture.
+                    </p>
+
+                    <span class="price">
+                        From ₹45,000
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=700&q=80"
+                    alt="Japan"
+                >
+
+                <div class="destination-info">
+
+                    <h3>Japan</h3>
+
+                    <p>
+                        Discover temples, technology and
+                        beautiful landscapes.
+                    </p>
+
+                    <span class="price">
+                        From ₹55,000
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=700&q=80"
+                    alt="Bali"
+                >
+
+                <div class="destination-info">
+
+                    <h3>Bali</h3>
+
+                    <p>
+                        Relax on beaches and explore
+                        tropical nature.
+                    </p>
+
+                    <span class="price">
+                        From ₹30,000
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FLIGHTS
+===================================================== -->
+
+<section
+    id="flights"
+    class="section"
+>
+
+    <div class="container">
+
+        <h2 class="page-title">
+            ✈️ Flight Booking
+        </h2>
+
+
+        <div class="search-box">
+
+            <div class="search-grid">
+
+                <input
+                    type="text"
+                    id="flightFrom"
+                    placeholder="From City"
+                >
+
+                <input
+                    type="text"
+                    id="flightTo"
+                    placeholder="To City"
+                >
+
+                <input
+                    type="date"
+                    id="flightDate"
+                >
+
+                <select id="passengers">
+
+                    <option value="1">
+                        1 Passenger
+                    </option>
+
+                    <option value="2">
+                        2 Passengers
+                    </option>
+
+                    <option value="3">
+                        3 Passengers
+                    </option>
+
+                    <option value="4">
+                        4 Passengers
+                    </option>
+
+                    <option value="5">
+                        5 Passengers
+                    </option>
+
+                </select>
+
+                <button
+                    class="search-btn"
+                    onclick="searchFlights()"
+                >
+                    Search Flights
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="flightResults"
+            class="destination-grid"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOTELS
+===================================================== -->
+
+<section
+    id="hotels"
+    class="section"
+>
+
+    <div class="container">
+
+        <h2 class="page-title">
+            🏨 Hotel Booking
+        </h2>
+
+
+        <div class="booking-box">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hotelCity"
+                        placeholder="Enter city"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Check-in
+                    </label>
+
+                    <input
+                        type="date"
+                        id="checkin"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Check-out
+                    </label>
+
+                    <input
+                        type="date"
+                        id="checkout"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Guests
+                    </label>
+
+                    <select id="guests">
+
+                        <option>1 Guest</option>
+
+                        <option>2 Guests</option>
+
+                        <option>3 Guests</option>
+
+                        <option>4 Guests</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="submit-btn"
+                onclick="bookHotel()"
+            >
+                Search & Book Hotel
+            </button>
+
+        </div>
+
+
+        <br>
+
+
+        <div
+            id="hotelResults"
+            class="destination-grid"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOUR PACKAGES
+===================================================== -->
+
+<section
+    id="packages"
+    class="section"
+>
+
+    <div class="container">
+
+        <h2 class="page-title">
+            🌍 Tour Packages
+        </h2>
+
+
+        <div class="package-grid">
+
+
+            <div class="package-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=700&q=80"
+                    alt="Goa"
+                >
+
+                <div class="package-content">
+
+                    <h3>
+                        Goa Beach Holiday
+                    </h3>
+
+                    <p>
+                        4 Days / 3 Nights
+                    </p>
+
+                    <ul>
+                        <li>Hotel accommodation</li>
+                        <li>Breakfast</li>
+                        <li>Airport transfer</li>
+                        <li>Beach tour</li>
+                    </ul>
+
+                    <div class="package-price">
+                        ₹15,999
+                    </div>
+
+                    <button
+                        class="submit-btn"
+                        onclick="bookPackage('Goa Beach Holiday',15999)"
+                    >
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=700&q=80"
+                    alt="India"
+                >
+
+                <div class="package-content">
+
+                    <h3>
+                        Golden Triangle
+                    </h3>
+
+                    <p>
+                        6 Days / 5 Nights
+                    </p>
+
+                    <ul>
+                        <li>Delhi sightseeing</li>
+                        <li>Agra Taj Mahal</li>
+                        <li>Jaipur tour</li>
+                        <li>Hotel stay</li>
+                    </ul>
+
+                    <div class="package-price">
+                        ₹22,999
+                    </div>
+
+                    <button
+                        class="submit-btn"
+                        onclick="bookPackage('Golden Triangle',22999)"
+                    >
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=700&q=80"
+                    alt="Bali"
+                >
+
+                <div class="package-content">
+
+                    <h3>
+                        Bali Adventure
+                    </h3>
+
+                    <p>
+                        5 Days / 4 Nights
+                    </p>
+
+                    <ul>
+                        <li>Beach resort</li>
+                        <li>Island tour</li>
+                        <li>Temple visit</li>
+                        <li>Breakfast included</li>
+                    </ul>
+
+                    <div class="package-price">
+                        ₹39,999
+                    </div>
+
+                    <button
+                        class="submit-btn"
+                        onclick="bookPackage('Bali Adventure',39999)"
+                    >
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=700&q=80"
+                    alt="Japan"
+                >
+
+                <div class="package-content">
+
+                    <h3>
+                        Japan Discovery
+                    </h3>
+
+                    <p>
+                        7 Days / 6 Nights
+                    </p>
+
+                    <ul>
+                        <li>Tokyo sightseeing</li>
+                        <li>Kyoto tour</li>
+                        <li>Traditional dinner</li>
+                        <li>Hotel accommodation</li>
+                    </ul>
+
+                    <div class="package-price">
+                        ₹69,999
+                    </div>
+
+                    <button
+                        class="submit-btn"
+                        onclick="bookPackage('Japan Discovery',69999)"
+                    >
+                        Book Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MY BOOKINGS
+===================================================== -->
+
+<section
+    id="bookings"
+    class="section"
+>
+
+    <div class="container">
+
+        <h2 class="page-title">
+            📋 My Bookings
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Booking ID
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Details
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Price
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="bookingTable"
+                ></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+    id="about"
+    class="section"
+>
+
+    <div class="container">
+
+        <h2 class="page-title">
+            About TravelGo
+        </h2>
+
+
+        <div class="about-box">
+
+            <p>
+                <b>TravelGo</b> is a sample Travel Booking
+                Management System developed using HTML,
+                CSS and JavaScript.
+            </p>
+
+            <br>
+
+            <p>
+                Users can search for flights, book hotels,
+                explore tour packages and manage their
+                bookings.
+            </p>
+
+            <br>
+
+            <p>
+                This project is designed as a simple
+                educational Web Technology project that
+                can be opened directly in VS Code and
+                a web browser.
+            </p>
+
+            <br>
+
+            <p>
+                <b>Technology:</b>
+                HTML5, CSS3, JavaScript and Browser
+                LocalStorage.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        ✈️ TravelGo Travel Booking System
+    </p>
+
+    <p>
+        © 2026 All Rights Reserved
+    </p>
+
+</footer>
+
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function login() {
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const password =
+        document.getElementById("password").value.trim();
+
+    const error =
+        document.getElementById("loginError");
+
+
+    if (
+        username === "admin" &&
+        password === "1234"
+    ) {
+
+        localStorage.setItem(
+            "travelLoggedIn",
+            "true"
+        );
+
+        document.getElementById(
+            "loginPage"
+        ).style.display = "none";
+
+        document.getElementById(
+            "app"
+        ).style.display = "block";
+
+        error.innerText = "";
+
+        displayBookings();
+
+    } else {
+
+        error.innerText =
+            "Invalid username or password!";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        "travelLoggedIn"
+    );
+
+    document.getElementById(
+        "app"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginPage"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "username"
+    ).value = "";
+
+    document.getElementById(
+        "password"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   CHECK LOGIN WHEN PAGE LOADS
+===================================================== */
+
+window.onload = function() {
+
+    if (
+        localStorage.getItem(
+            "travelLoggedIn"
+        ) === "true"
+    ) {
+
+        document.getElementById(
+            "loginPage"
+        ).style.display = "none";
+
+        document.getElementById(
+            "app"
+        ).style.display = "block";
+
+    }
+
+    displayBookings();
+
+};
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showSection(sectionId) {
+
+    const sections =
+        document.querySelectorAll(
+            ".section"
+        );
+
+
+    sections.forEach(
+        function(section) {
+
+            section.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        sectionId
+    ).classList.add("active");
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (sectionId === "bookings") {
+
+        displayBookings();
+
+    }
+
+}
+
+
+/* =====================================================
+   FLIGHT SEARCH
+===================================================== */
+
+function searchFlights() {
+
+    const from =
+        document.getElementById(
+            "flightFrom"
+        ).value.trim();
+
+    const to =
+        document.getElementById(
+            "flightTo"
+        ).value.trim();
+
+    const date =
+        document.getElementById(
+            "flightDate"
+        ).value;
+
+    const passengers =
+        document.getElementById(
+            "passengers"
+        ).value;
+
+
+    if (!from || !to || !date) {
+
+        alert(
+            "Please enter From, To and Date."
+        );
+
+        return;
+
+    }
+
+
+    const results =
+        document.getElementById(
+            "flightResults"
+        );
+
+
+    const flights = [
+
+        {
+            airline: "TravelGo Airways",
+            time: "08:00 AM",
+            price: 5999
+        },
+
+        {
+            airline: "Sky Express",
+            time: "01:30 PM",
+            price: 6999
+        },
+
+        {
+            airline: "Global Airlines",
+            time: "07:45 PM",
+            price: 7999
+        }
+
+    ];
+
+
+    results.innerHTML = "";
+
+
+    flights.forEach(
+        function(flight) {
+
+            const total =
+                flight.price *
+                Number(passengers);
+
+
+            results.innerHTML += `
+
+            <div class="destination-card">
+
+                <div class="destination-info">
+
+                    <h3>
+                        ✈️ ${flight.airline}
+                    </h3>
+
+                    <p>
+                        ${from} → ${to}
+                    </p>
+
+                    <p>
+                        Departure:
+                        ${flight.time}
+                    </p>
+
+                    <p>
+                        Date:
+                        ${date}
+                    </p>
+
+                    <p>
+                        Passengers:
+                        ${passengers}
+                    </p>
+
+                    <div class="price">
+                        ₹${total.toLocaleString()}
+                    </div>
+
+                    <button
+                        class="submit-btn"
+                        onclick="bookFlight(
+                            '${flight.airline}',
+                            '${from}',
+                            '${to}',
+                            '${date}',
+                            ${total}
+                        )"
+                    >
+                        Book Flight
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   BOOK FLIGHT
+===================================================== */
+
+function bookFlight(
+    airline,
+    from,
+    to,
+    date,
+    price
+) {
+
+    const booking = {
+
+        id:
+            "TR" +
+            Date.now(),
+
+        type:
+            "Flight",
+
+        details:
+            airline +
+            " - " +
+            from +
+            " to " +
+            to,
+
+        date:
+            date,
+
+        price:
+            price,
+
+        status:
+            "Confirmed"
+
+    };
+
+
+    saveBooking(booking);
+
+
+    alert(
+        "Flight booked successfully!"
+    );
+
+
+    showSection("bookings");
+
+}
+
+
+/* =====================================================
+   HOTEL BOOKING
+===================================================== */
+
+function bookHotel() {
+
+    const city =
+        document.getElementById(
+            "hotelCity"
+        ).value.trim();
+
+    const checkin =
+        document.getElementById(
+            "checkin"
+        ).value;
+
+    const checkout =
+        document.getElementById(
+            "checkout"
+        ).value;
+
+    const guests =
+        document.getElementById(
+            "guests"
+        ).value;
+
+
+    if (
+        !city ||
+        !checkin ||
+        !checkout
+    ) {
+
+        alert(
+            "Please enter all hotel details."
+        );
+
+        return;
+
+    }
+
+
+    const price = 4500;
+
+
+    const booking = {
+
+        id:
+            "HT" +
+            Date.now(),
+
+        type:
+            "Hotel",
+
+        details:
+            "Hotel in " +
+            city +
+            " (" +
+            guests +
+            ")",
+
+        date:
+            checkin,
+
+        price:
+            price,
+
+        status:
+            "Confirmed"
+
+    };
+
+
+    saveBooking(booking);
+
+
+    alert(
+        "Hotel booked successfully!"
+    );
+
+
+    showSection("bookings");
+
+}
+
+
+/* =====================================================
+   TOUR PACKAGE BOOKING
+===================================================== */
+
+function bookPackage(
+    packageName,
+    price
+) {
+
+    const booking = {
+
+        id:
+            "PK" +
+            Date.now(),
+
+        type:
+            "Tour Package",
+
+        details:
+            packageName,
+
+        date:
+            new Date()
+                .toISOString()
+                .split("T")[0],
+
+        price:
+            price,
+
+        status:
+            "Confirmed"
+
+    };
+
+
+    saveBooking(booking);
+
+
+    alert(
+        packageName +
+        " booked successfully!"
+    );
+
+
+    showSection("bookings");
+
+}
+
+
+/* =====================================================
+   SAVE BOOKING
+===================================================== */
+
+function saveBooking(booking) {
+
+    let bookings =
+        JSON.parse(
+            localStorage.getItem(
+                "travelBookings"
+            )
+        ) || [];
+
+
+    bookings.push(booking);
+
+
+    localStorage.setItem(
+        "travelBookings",
+        JSON.stringify(bookings)
+    );
+
+
+    displayBookings();
+
+}
+
+
+/* =====================================================
+   DISPLAY BOOKINGS
+===================================================== */
+
+function displayBookings() {
+
+    const table =
+        document.getElementById(
+            "bookingTable"
+        );
+
+
+    if (!table) {
+
+        return;
+
+    }
+
+
+    let bookings =
+        JSON.parse(
+            localStorage.getItem(
+                "travelBookings"
+            )
+        ) || [];
+
+
+    table.innerHTML = "";
+
+
+    if (bookings.length === 0) {
+
+        table.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="7"
+                style="padding:30px;"
+            >
+                No bookings found.
+            </td>
+
+        </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    bookings.forEach(
+        function(booking) {
+
+            table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${booking.id}
+                </td>
+
+                <td>
+                    ${booking.type}
+                </td>
+
+                <td>
+                    ${booking.details}
+                </td>
+
+                <td>
+                    ${booking.date}
+                </td>
+
+                <td>
+                    ₹${Number(
+                        booking.price
+                    ).toLocaleString()}
+                </td>
+
+                <td
+                    style="
+                    color:green;
+                    font-weight:bold;
+                    "
+                >
+                    ${booking.status}
+                </td>
+
+                <td>
+
+                    <button
+                        class="cancel-btn"
+                        onclick="
+                        cancelBooking(
+                            '${booking.id}'
+                        )
+                        "
+                    >
+                        Cancel
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CANCEL BOOKING
+===================================================== */
+
+function cancelBooking(id) {
+
+    if (
+        !confirm(
+            "Are you sure you want to cancel this booking?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    let bookings =
+        JSON.parse(
+            localStorage.getItem(
+                "travelBookings"
+            )
+        ) || [];
+
+
+    bookings =
+        bookings.filter(
+            function(booking) {
+
+                return booking.id !== id;
+
+            }
+        );
+
+
+    localStorage.setItem(
+        "travelBookings",
+        JSON.stringify(bookings)
+    );
+
+
+    displayBookings();
+
+
+    alert(
+        "Booking cancelled successfully."
+    );
+
+}
+
+
+/* =====================================================
+   ENTER KEY LOGIN
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            document.activeElement.id ===
+            "password"
+        ) {
+
+            login();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
